@@ -1,11 +1,22 @@
-import type { Express } from "express";
+import type { Express, Request } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertExcelFileSchema, insertExcelDataSchema } from "@shared/schema";
 import multer from "multer";
-import * as XLSX from "xlsx";
+import XLSX from "xlsx";
 import path from "path";
 import fs from "fs";
+
+// Ensure uploads directory exists
+const uploadsDir = path.join(process.cwd(), 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Extended Request interface for multer
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
 
 // Configure multer for file uploads
 const upload = multer({
@@ -13,7 +24,7 @@ const upload = multer({
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB limit
   },
-  fileFilter: (req, file, cb) => {
+  fileFilter: (req: any, file: any, cb: any) => {
     const allowedTypes = [
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
       'application/vnd.ms-excel', // .xls
@@ -115,7 +126,7 @@ function calculateSummaryStats(headers: string[], data: any[]) {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Upload Excel file
-  app.post("/api/upload", upload.single('file'), async (req, res) => {
+  app.post("/api/upload", upload.single('file'), async (req: MulterRequest, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -146,7 +157,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const rows = jsonData.slice(1);
         
         // Convert rows to objects
-        const data = rows.map(row => {
+        const data = rows.map((row: any) => {
           const obj: any = {};
           headers.forEach((header, index) => {
             obj[header] = (row as any[])[index] || null;
@@ -273,7 +284,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Data not found" });
       }
 
-      const chartData = data.data.map((row: any) => ({
+      const chartData = (data.data as any[]).map((row: any) => ({
         x: row[xColumn],
         y: row[yColumn],
         label: row[xColumn],
