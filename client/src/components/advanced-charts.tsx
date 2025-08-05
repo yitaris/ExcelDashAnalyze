@@ -249,7 +249,7 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
                 hide={hiddenSeries.has(col)}
               />
             ))}
-            <ReferenceLine y={0} stroke="#666" strokeDasharray="2 2" />
+            <ReferenceLine yAxisId="left" y={0} stroke="#666" strokeDasharray="2 2" />
           </ComposedChart>
         </ResponsiveContainer>
       )
@@ -260,11 +260,11 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
     return (
       <Card className="shadow-card">
         <CardContent className="p-8 text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <BarChart3 className="text-gray-400" size={24} />
+          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <BarChart3 className="text-gray-400 dark:text-gray-500" size={24} />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No Data Available</h3>
-          <p className="text-gray-500">Upload an Excel file to see advanced visualizations.</p>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">No Data Available</h3>
+          <p className="text-gray-500 dark:text-gray-400">Upload an Excel file to see advanced visualizations.</p>
         </CardContent>
       </Card>
     );
@@ -274,8 +274,8 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-gray-900">Advanced Analytics</h2>
-          <p className="text-sm text-gray-600 mt-1">Comprehensive data visualization and analysis</p>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Advanced Analytics</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">Comprehensive data visualization and analysis</p>
         </div>
         <div className="flex items-center space-x-2">
           <Badge variant="secondary" className="bg-primary-100 text-primary-700">
@@ -289,7 +289,7 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
 
       {numericColumns.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
-          <span className="text-sm font-medium text-gray-600">Toggle Series:</span>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Toggle Series:</span>
           {numericColumns.map((col, index) => (
             <Button
               key={col}
@@ -325,8 +325,8 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
                     <chart.icon className="text-primary-600" size={20} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{chart.title}</h3>
-                    <p className="text-xs text-gray-500">{chart.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{chart.title}</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{chart.description}</p>
                   </div>
                 </div>
                 <div className="flex space-x-2">
@@ -366,7 +366,7 @@ export default function AdvancedCharts({ data, headers, statistics }: AdvancedCh
       {/* Statistical Insights */}
       <Card className="shadow-card">
         <CardContent className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Data Insights</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Data Insights</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-primary-50 p-4 rounded-lg">
               <h4 className="text-sm font-medium text-primary-700 mb-2">Correlation Analysis</h4>
