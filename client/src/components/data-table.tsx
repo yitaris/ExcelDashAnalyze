@@ -113,7 +113,8 @@ export default function DataTable({ data, headers }: DataTableProps) {
     if (value == null) return '';
     
     // Format currency-like columns
-    if (header.toLowerCase().includes('amount') || header.toLowerCase().includes('price') || header.toLowerCase().includes('revenue')) {
+    const headerStr = String(header).toLowerCase();
+    if (headerStr.includes('amount') || headerStr.includes('price') || headerStr.includes('revenue')) {
       const num = parseFloat(value);
       if (!isNaN(num)) {
         return new Intl.NumberFormat('en-US', {
@@ -124,7 +125,7 @@ export default function DataTable({ data, headers }: DataTableProps) {
     }
 
     // Format category columns with badges
-    if (header.toLowerCase().includes('category') || header.toLowerCase().includes('type')) {
+    if (headerStr.includes('category') || headerStr.includes('type')) {
       return (
         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getCategoryBadgeColor(value)}`}>
           {value}
@@ -139,9 +140,9 @@ export default function DataTable({ data, headers }: DataTableProps) {
     <Card className="shadow-card">
       <CardContent className="p-0">
         {/* Header */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <h2 className="text-lg font-semibold text-gray-900">Data Table</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Data Table</h2>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative">
                 <Input
@@ -181,7 +182,7 @@ export default function DataTable({ data, headers }: DataTableProps) {
                     key={header}
                     onClick={() => handleSort(header)}
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors duration-200"
-                    data-testid={`header-${header.toLowerCase().replace(/\s+/g, '-')}`}
+                    data-testid={`header-${String(header).toLowerCase().replace(/\s+/g, '-')}`}
                   >
                     <div className="flex items-center space-x-1">
                       <span>{header}</span>
@@ -202,7 +203,7 @@ export default function DataTable({ data, headers }: DataTableProps) {
                     <td
                       key={header}
                       className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                      data-testid={`cell-${header.toLowerCase().replace(/\s+/g, '-')}-${index}`}
+                      data-testid={`cell-${String(header).toLowerCase().replace(/\s+/g, '-')}-${index}`}
                     >
                       {formatCellValue(row[header], header)}
                     </td>
