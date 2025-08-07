@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ChartLine, Settings, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import UserProfile from "@/components/user-profile";
 import FileUpload from "@/components/file-upload";
 import DataSummary from "@/components/data-summary";
 import ChartFilters from "@/components/chart-filters";
@@ -109,6 +110,7 @@ export default function Dashboard() {
               >
                 <Settings size={16} />
               </Button>
+              <UserProfile />
             </div>
           </div>
         </div>
